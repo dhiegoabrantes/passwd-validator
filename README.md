@@ -38,6 +38,22 @@ curl -X POST "http://localhost:8080/passwd-validator" \
         -d "{ \"word\": \"0MyP4sswd!\"}"
 ```
 
+O retorno é um objeto JSON com o seguinte formato:
+
+```json5
+{
+    "valid": true
+}
+```
+
+Ou,
+
+```json5
+{
+    "valid": false
+}
+```
+
 ## Executando a aplicação
 Existem alguns requisitos mínimos para executar a aplicação:
 * Java 11 ou superior
