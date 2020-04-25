@@ -25,7 +25,7 @@ poderá ser acessado através da [URL](http://localhost:8080/swagger-ui.html).
 
 
 * Método HTTP: POST
-* Path: /passwd-validator
+* Path: `/passwd-validator`
 
 O método POST foi utilizado para evitar que a senha fosse exposta na URL da requisição.
 
@@ -106,5 +106,13 @@ O retorno é um objeto JSON no seguinte formato:
 ```json5
 {
   "status": "UP"
+}
+```
+
+Ou,
+
+```json5
+{
+  "status": "DOWN"
 }
 ```
