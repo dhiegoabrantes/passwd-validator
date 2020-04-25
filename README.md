@@ -10,29 +10,26 @@ Os requisitos mínimos para um formato de senha aceitável são:
 ## Ferramentas Utilizadas
 * Java 11
 * Spring Boot 2
+* Spring Actuator
 * Lombok 1.18
 * JUnit 5
 * Swagger 2
 * JaCoCo 0.8.5
 * Docker
 
-## Sobre as API's disponibilizadas
-Basicamente, a aplicação disponibiliza duas API's no formato REST:
-* API para validação de valores de senha
-* API para health check
+## Sobre a API
+A API é responsável por validar formato de valores que serão utilizados como senha e está disponível no formato REST.
 
-A documentação das API`s e client web foram dispibilizados através do Swagger e, uma vez que a aplicação estiver em execução,
+A documentação e client web foram dispibilizados através do Swagger e, uma vez que a aplicação estiver em execução,
 poderá ser acessado através da [URL](http://localhost:8080/swagger-ui.html).
 
 
-### API para Validação de formato de senha
-API utilizada para validar formato de valores que serão utilizados como senha.
 * Método HTTP: POST
 * Path: /passwd-validator
 
 O método POST foi utilizado para evitar que a senha fosse exposta na URL da requisição.
 
-#### Como utilizar?
+### Como utilizar?
 
 ```bash
 curl -X POST "http://localhost:8080/passwd-validator" \
@@ -40,20 +37,6 @@ curl -X POST "http://localhost:8080/passwd-validator" \
         -H "Content-Type: application/json" \
         -d "{ \"word\": \"0MyP4sswd!\"}"
 ```
-
-### API para Health Check
-API utilizada somente para verificar a saúde da instância onde está disponibilizada a aplicação.
-
-* Método HTTP: GET
-* Path: /ping
-
-#### Como utilizar?
-Abaixo segue um exemplo de request no formato `curl`:
-```bash
-curl -X GET "http://localhost:8080/ping" -H "accept: */*"
-```
-
-O retorno em caso de sucesso é o valor `"pong"`.
 
 ## Executando a aplicação
 Existem alguns requisitos mínimos para executar a aplicação:
@@ -89,6 +72,8 @@ Através desse comando, as seguintes taks são executadas:
 * Criação e execução do container
 
 ### Considerações Técnicas
+
+#### Sobre code coverage
 O projeto está configurado com `minimum code coverage` de 90% e o build somente terá sucesso se essa regra for respeitada.
 
 Acessando a raíz do projeto e utilizando o comando abaixo é possível efetuar o build.
@@ -102,6 +87,24 @@ Os relatórios de cobertura de teste estarão disponíveis na raíz do projeto, 
 ![jacoco](docs/jacoco-report-exemple.png)
 
 Algumas classes foram desconsideradas na checagem da cobertura dos testes e na geração do relatório:
-* Classes DTO (Data Transfer Object)
-* Classe de inicialização do projeto
-* Código gerado pelo Lombok (uso do `lombok.config`)
+* Classes contidas nos pacotes
+    * `com.dhiegoabrantes.passwdvalidator.dto` (Data Transfer Objects)
+    * `com.dhiegoabrantes.passwdvalidator.config` (Classes de configuração)
+* Classe de inicialização do projeto, `PasswdValidatorApplication.class`.
+* Código gerado pelo Lombok, configurado com o `lombok.config`.
+
+Conforme o projeto evolua, caso seja necessário ignorar mais classe ou pacotes, é possível através da variável `classesToIgnore` no arquivo `build.gradle`. O conteúdo da variável é utilizado nas tasks `jacocoTestReport` e `jacocoTestCoverageVerification`, que são executadas no build.
+
+#### Health Checking
+Foi utilizado o Spring Actuator para disponibilizar uma API que pode ser utilizada para checar a saúde do serviço.
+
+* Método HTTP: GET
+* Path: `/actuator/health`
+
+O retorno é um objeto JSON no seguinte formato:
+
+```json5
+{
+  "status": "UP"
+}
+```
