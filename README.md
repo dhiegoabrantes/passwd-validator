@@ -98,3 +98,8 @@ Acessando a raíz do projeto e utilizando o comando abaixo é possível efetuar 
 Os relatórios de cobertura de teste estarão disponíveis na raíz do projeto, no path: `/build/jacocoHtml/index.html`
 
 ![jacoco](docs/jacoco-report-exemple.png)
+
+Algumas classes foram desconsideradas na checagem da cobertura dos testes e na geração do relatório:
+* Classes DTO (Data Transfer Object)
+* Classe de inicialização do projeto
+* Código gerado pelo Lombok (uso do `lombok.config`)
