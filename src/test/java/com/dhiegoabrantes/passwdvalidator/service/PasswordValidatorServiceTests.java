@@ -1,6 +1,7 @@
 package com.dhiegoabrantes.passwdvalidator.service;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -13,27 +14,16 @@ public class PasswordValidatorServiceTests {
     @Autowired
     private PasswordValidatorService passwordValidatorService;
 
-    @Test
-    public void invalidCasesTest(){
-        assertFalse(passwordValidatorService.isValid(null));
-        assertFalse(passwordValidatorService.isValid(""));
-        assertFalse(passwordValidatorService.isValid("a"));
-        assertFalse(passwordValidatorService.isValid("aA"));
-        assertFalse(passwordValidatorService.isValid("aA@"));
-        assertFalse(passwordValidatorService.isValid("aA@123ab"));
-        assertFalse(passwordValidatorService.isValid("sR9v`!G~"));
-        assertFalse(passwordValidatorService.isValid("z*q.2P(Q"));
+    @ParameterizedTest
+    @ValueSource(strings = {"", "  ", "a", "aA", "aA@", "aA@123ab", "sR9v`!G~", "z*q.2P(Q"} )
+    public void invalidCasesTest(String input) {
+        assertFalse(passwordValidatorService.isValid(input));
     }
 
-    @Test
-    public void validCasesTest(){
-        assertTrue(passwordValidatorService.isValid("AbTp9!foo"));
-        assertTrue(passwordValidatorService.isValid("aA@123abc"));
-        assertTrue(passwordValidatorService.isValid("BhUv##8%y%"));
-        assertTrue(passwordValidatorService.isValid("nw@&g*7*WW"));
-        assertTrue(passwordValidatorService.isValid("juFYv7x7&_"));
-        assertTrue(passwordValidatorService.isValid("#@@J8a$USD@"));
-
+    @ParameterizedTest
+    @ValueSource(strings = {"AbTp9!foo", "aA@123abc", "BhUv##8%y%", "nw@&g*7*WW", "juFYv7x7&_", "#@@J8a$USD@"} )
+    public void validCasesTest(String input){
+        assertTrue(passwordValidatorService.isValid(input));
     }
 
 
