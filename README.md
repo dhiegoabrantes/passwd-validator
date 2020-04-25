@@ -30,6 +30,8 @@ API utilizada para validar formato de valores que serão utilizados como senha.
 * Método HTTP: POST
 * Path: /passwd-validator
 
+O método POST foi utilizado para evitar que a senha fosse exposta na URL da requisição.
+
 #### Como utilizar?
 
 ```bash
