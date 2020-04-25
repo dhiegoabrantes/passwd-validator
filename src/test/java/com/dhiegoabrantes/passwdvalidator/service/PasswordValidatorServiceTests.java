@@ -1,9 +1,12 @@
 package com.dhiegoabrantes.passwdvalidator.service;
 
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.stream.Stream;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -14,8 +17,13 @@ public class PasswordValidatorServiceTests {
     @Autowired
     private PasswordValidatorService passwordValidatorService;
 
+    static Stream<String> blankStrings() {
+        return Stream.of("", "   ", null);
+    }
+
     @ParameterizedTest
-    @ValueSource(strings = {"", "  ", "a", "aA", "aA@", "aA@123ab", "sR9v`!G~", "z*q.2P(Q"} )
+    @ValueSource(strings = {"a", "aA", "aA@", "aA@123ab", "sR9v`!G~", "z*q.2P(Q"} )
+    @MethodSource("blankStrings")
     public void invalidCasesTest(String input) {
         assertFalse(passwordValidatorService.isValid(input));
     }
