@@ -54,6 +54,8 @@ Ou,
 }
 ```
 
+Conforme já mencionado, é possível efetuar requisições e verificar as respostas utilizando o Swagger, através da [URL](http://localhost:8080/swagger-ui.html).
+
 ## Executando a aplicação
 Existem alguns requisitos mínimos para executar a aplicação:
 * Java 11 ou superior
