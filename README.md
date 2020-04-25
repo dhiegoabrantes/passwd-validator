@@ -1,6 +1,6 @@
 # Password Validator API
-A API é especializada em validação de valores para uso em senhas.<br>
-Os requisitor mínimos para validação positiva são:
+A API é especializada em validação de formato de senha.<br>
+Os requisitos mínimos para um formato de senha aceitável são:
 * Mínimo de 9 caracteres
 * Conter pelo menos um dígito
 * Conter pelo menos uma letra minúscula
