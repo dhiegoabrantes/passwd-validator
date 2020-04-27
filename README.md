@@ -67,6 +67,12 @@ Por padrão, a porta utilizada foi a `8080`.
 ### Clone ou Download do repositório
 
 Após fazer o clone ou download, basta acessar a pasta raiz do projeto e executar o seguinte comando:
+* Via Makefile
+```bash
+make run-java
+```
+
+* Via bash
 ```bash
 ./build-and-run.sh
 ```
@@ -75,6 +81,13 @@ Através desse comando será feito o build da aplicação e, em seguida, a execu
 
 ### Executando em um container docker
 Após fazer o clone ou download, basta acessar a pasta raiz do projeto e executar o seguinte comando:
+
+* Via Makefile
+```bash
+make up
+```
+
+* Via bash
 ```bash
 ./build-and-dockerize-and-run.sh
 ```
